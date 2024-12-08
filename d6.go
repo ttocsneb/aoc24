@@ -37,6 +37,20 @@ func ComparePos(lhs, rhs Pos) int {
 	return 0
 }
 
+func minDims(blocks []Pos) (x, y int) {
+	x = 9999999
+	y = 9999999
+	for _, block := range blocks {
+		if block.Y < y {
+			y = block.Y
+		}
+		if block.X < x {
+			x = block.X
+		}
+	}
+	return
+}
+
 func maxDims(blocks []Pos) (x, y int) {
 	for _, block := range blocks {
 		if block.Y > y {
