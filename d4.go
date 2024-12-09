@@ -15,6 +15,9 @@ func arr(n int) []byte {
 }
 
 func print(data [][]byte) {
+	if !isDebug {
+		return
+	}
 	for _, row := range data {
 		for _, c := range row {
 			if c > 0x20 && c < 0x7F {
@@ -69,8 +72,9 @@ func count(table [][]byte, pattern [][]byte, projection ...[][]byte) int {
 				total += 1
 				if len(projection) > 0 {
 					project(projection[0], pattern, x, y)
-					// fmt.Printf("x: %d, y: %d\n", x, y)
-					// print(projection[0])
+					if isDebug {
+						print(projection[0])
+					}
 				}
 			}
 		}
@@ -103,7 +107,6 @@ func (self *Day) D4() error {
 		}
 		table = append(table, line)
 		line = bytes.TrimSpace(line)
-		// fmt.Println(string(line))
 	}
 
 	// w, h := shape(table)
@@ -162,14 +165,10 @@ func (self *Day) D4() error {
 		total += count(table, pattern)
 	}
 
-	// print(table)
-	// fmt.Println("P1:")
-	// print(projection)
+	if isDebug {
+		print(table)
+	}
 
-	// projection = make([][]byte, h)
-	// for y := range projection {
-	// 	projection[y] = arr(w)
-	// }
 	fmt.Println(total)
 
 	MasPatterns := [][][]byte{
@@ -198,9 +197,6 @@ func (self *Day) D4() error {
 	for _, pattern := range MasPatterns {
 		masTotal += count(table, pattern)
 	}
-
-	// fmt.Println("P2:")
-	// print(projection)
 
 	fmt.Println(masTotal)
 	return nil

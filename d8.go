@@ -43,7 +43,7 @@ func printNodes(nodes map[byte][]Pos, antinodes []Pos) {
 	}
 
 	for _, line := range buf {
-		fmt.Println(string(line))
+		Debug(string(line))
 	}
 }
 
@@ -166,11 +166,11 @@ func (self *Day) D8() error {
 		}
 	}
 
-	// printNodes(nodes, []Pos{})
-	// fmt.Println()
-	// printNodes(nodes, actuals)
-	// fmt.Println()
-	// printNodes(nodes, actuals2)
+	printNodes(nodes, []Pos{})
+	Debug()
+	printNodes(nodes, actuals)
+	Debug()
+	printNodes(nodes, actuals2)
 
 	fmt.Println(len(actuals))
 	fmt.Println(len(actuals2))

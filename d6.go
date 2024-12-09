@@ -64,6 +64,9 @@ func maxDims(blocks []Pos) (x, y int) {
 }
 
 func printLayout(blocks []Pos, guard Pos, direction Dir, visited []Pos) {
+	if !isDebug {
+		return
+	}
 	y, x := maxDims(blocks)
 	y2, x2 := maxDims(visited)
 	x = max(x, x2, guard.X)
@@ -143,7 +146,6 @@ func CountPositions(blocks []Pos, guard Pos) ([]Pos, bool) {
 		}
 		return nextPos
 	}
-	// printLayout(blocks, guard, Up, []Pos{})
 
 	h, w := maxDims(blocks)
 	w = max(w, guard.X)
@@ -157,14 +159,13 @@ func CountPositions(blocks []Pos, guard Pos) ([]Pos, bool) {
 	for {
 		iter += 1
 		if iter > len(visited)*2 {
-			// printLayout(blocks, curPos, direction, visited)
+			printLayout(blocks, curPos, direction, visited)
 			return visited, true
 		}
 		if len(visited) != lastN {
 			iter = 0
 			lastN = len(visited)
 		}
-		// fmt.Println()
 		nextPos := getNextPos(curPos, direction)
 		if HasPos(blocks, nextPos) {
 			switch direction {
@@ -190,7 +191,6 @@ func CountPositions(blocks []Pos, guard Pos) ([]Pos, bool) {
 		}
 
 		if curPos.X == guard.X && curPos.Y == guard.Y && direction == Up {
-			// printLayout(blocks, curPos, direction, visited)
 			return visited, true
 		}
 	}
@@ -246,7 +246,6 @@ func (self *Day) D6() error {
 			lastPct = pct
 			fmt.Printf("\033[2K\r%d%%", lastPct)
 		}
-		// fmt.Println(pos)
 		altered := make([]Pos, len(blocks))
 		for i, b := range blocks {
 			altered[i] = b

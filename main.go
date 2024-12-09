@@ -64,6 +64,14 @@ func (self *Day) D2() error {
 	return cmd.Run()
 }
 
+var isDebug = false
+
+func Debug(val ...any) {
+	if isDebug {
+		fmt.Println(val...)
+	}
+}
+
 func main() {
 	flag.Usage = func() {
 		fmt.Printf("Usage of %s:\n", os.Args[0])
@@ -98,9 +106,11 @@ func main() {
 	file := flag.String("file", "", "file to read")
 	day := flag.Int("day", 0, "Day to run")
 	all := flag.Bool("all", false, "Run all days")
+	flag.BoolVar(&isDebug, "debug", false, "Print debug information")
 	flag.StringVar(file, "f", "", "file to read")
 	flag.IntVar(day, "d", 0, "Day to run")
 	flag.BoolVar(all, "a", false, "Run all days")
+	flag.BoolVar(&isDebug, "v", false, "Print debug information")
 
 	vars := []string{"-redirects", "-upload", "-key", "-file", "-expires", "-cert"}
 

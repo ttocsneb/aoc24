@@ -36,21 +36,29 @@ func (self *Equation) CanSolve() bool {
 	possible := 1 << n
 
 	for i := 0; i < possible; i++ {
-		// test := strings.Builder{}
+		test := strings.Builder{}
 		result := self.Inputs[0]
-		// test.WriteString(fmt.Sprint(result))
+		if isDebug {
+			test.WriteString(fmt.Sprint(result))
+		}
 		for opI := 0; opI < n; opI++ {
 			if (1<<opI)&i == 0 {
-				// test.WriteString(fmt.Sprintf(" + %d", self.Inputs[opI+1]))
+				if isDebug {
+					test.WriteString(fmt.Sprintf(" + %d", self.Inputs[opI+1]))
+				}
 				result = result + self.Inputs[opI+1]
 			} else {
-				// test.WriteString(fmt.Sprintf(" * %d", self.Inputs[opI+1]))
+				if isDebug {
+					test.WriteString(fmt.Sprintf(" * %d", self.Inputs[opI+1]))
+				}
 				result = result * self.Inputs[opI+1]
 			}
 		}
-		// test.WriteString(fmt.Sprintf(" = %d (%d)", result, self.Result))
-		// fmt.Println(test.String())
+		if isDebug {
+			test.WriteString(fmt.Sprintf(" = %d (%d)", result, self.Result))
+		}
 		if result == self.Result {
+			Debug(test.String())
 			return true
 		}
 	}
@@ -74,25 +82,36 @@ func (self *Equation) CanSolveConcat() bool {
 	ops := make([]Op, n)
 
 	for {
-		// test := strings.Builder{}
+		test := strings.Builder{}
 		result := self.Inputs[0]
-		// test.WriteString(fmt.Sprint(result))
+		if isDebug {
+			test.WriteString(fmt.Sprint(result))
+		}
 		for i := 0; i < n; i++ {
 			if ops[i] == Add {
-				// test.WriteString(fmt.Sprintf(" + %d", self.Inputs[i+1]))
+				if isDebug {
+					test.WriteString(fmt.Sprintf(" + %d", self.Inputs[i+1]))
+				}
 				result = result + self.Inputs[i+1]
 			} else if ops[i] == Mul {
-				// test.WriteString(fmt.Sprintf(" * %d", self.Inputs[i+1]))
+				if isDebug {
+					test.WriteString(fmt.Sprintf(" * %d", self.Inputs[i+1]))
+				}
+
 				result = result * self.Inputs[i+1]
 			} else if ops[i] == Concat {
-				// test.WriteString(fmt.Sprintf(" || %d", self.Inputs[i+1]))
+				if isDebug {
+					test.WriteString(fmt.Sprintf(" || %d", self.Inputs[i+1]))
+				}
 				v, _ := strconv.ParseInt(fmt.Sprintf("%d%d", result, self.Inputs[i+1]), 10, 0)
 				result = int(v)
 			}
 		}
-		// test.WriteString(fmt.Sprintf(" = %d (%d)", result, self.Result))
-		// fmt.Println(test.String())
+		if isDebug {
+			test.WriteString(fmt.Sprintf(" = %d (%d)", result, self.Result))
+		}
 		if result == self.Result {
+			Debug(test.String())
 			return true
 		}
 
