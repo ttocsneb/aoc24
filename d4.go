@@ -50,7 +50,7 @@ func look(table [][]byte, x, y int, template [][]byte) {
 		}
 	}
 }
-func shape(data [][]byte) (w, h int) {
+func shape[T any](data [][]T) (w, h int) {
 	return len(data[0]), len(data)
 }
 
