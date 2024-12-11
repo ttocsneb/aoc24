@@ -66,6 +66,11 @@ func (self *Day) D2() error {
 
 var isDebug = false
 
+func Debugf(f string, val ...any) {
+	if isDebug {
+		fmt.Printf(f, val...)
+	}
+}
 func Debug(val ...any) {
 	if isDebug {
 		fmt.Println(val...)
