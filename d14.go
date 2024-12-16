@@ -86,10 +86,10 @@ func (self *Day) D14() error {
 		})
 	}
 
-	w := 101
-	h := 103
-	// w := 11
-	// h := 7
+	// w := 101
+	// h := 103
+	w := 11
+	h := 7
 
 	quads := make([]int, 4)
 	wh := w / 2
